@@ -1,0 +1,656 @@
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;600&family=Courier+Prime:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    background-color: #5C061C;
+    color: white;
+    font-family: 'Sacramento', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- BARRE SUPÉRIEURE --- */
+.barre-haut {
+    width: 100%;
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(255, 214, 229, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo { 
+    font-size: 28px; 
+    color: #FFD6E5; 
+}
+
+.date { 
+    font-size: 22px; 
+    color: #FFD6E5; 
+    opacity: 0.9; 
+}
+
+/* --- STYLE SPÉCIFIQUE DU PRÉNOM --- */
+.prenom {
+    position: absolute;
+    top: 48%;
+    left: 26%;
+    display: inline-block;
+    color: #FFB6C1;
+    background: linear-gradient(135deg, #FFFFFF, #FFD6E5, #FF69B4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+    transform: translate(-50%, -50%) rotate(-35deg);
+    white-space: nowrap;
+    padding: 0 6px;
+    z-index: 600;
+}
+
+/* --- CONTENU PRINCIPAL --- */
+.zone-contenu {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 500;
+}
+
+.page {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.page.active { 
+    display: flex !important; 
+}
+
+.cache { 
+    display: none !important; 
+}
+
+h1 { 
+    color: #FFD6E5; 
+    font-size: 50px; 
+}
+
+h2 { 
+    color: white; 
+    font-size: 32px; 
+    font-weight: normal; 
+}
+
+.sous-titre { 
+    font-size: 24px; 
+    color: white; 
+    margin-bottom: 10px; 
+}
+
+#btn-surprise {
+    background-color: transparent;
+    border: 2px solid #FFD6E5;
+    color: #FFD6E5;
+    padding: 10px 28px;
+    font-size: 24px;
+    font-family: 'Sacramento', cursive;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#btn-surprise:hover {
+    background-color: #FFD6E5;
+    color: #5C061C;
+}
+
+/* --- ENVELOPPE --- */
+#zoneEnveloppe { 
+    position: relative; 
+    z-index: 10; 
+}
+
+.enveloppe-container { 
+    cursor: pointer; 
+    margin-top: 10px; 
+    display: inline-block; 
+    transition: transform 0.3s ease; 
+}
+
+.enveloppe-container:hover { 
+    transform: scale(1.04); 
+}
+
+.img-enveloppe { 
+    width: 320px; 
+    height: auto; 
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4)); 
+}
+
+.instruction { 
+    font-size: 22px; 
+    color: #FFD6E5; 
+    margin-top: 10px; 
+}
+
+/* --- TAPISSERIE DE FLEURS --- */
+#fleursConteneur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.fleur-recouvrement {
+    position: absolute;
+    object-fit: contain;
+    pointer-events: none;
+    margin-left: -50px;
+    margin-top: -50px;
+    animation: apparaitFleur 0.25s ease-out forwards;
+}
+
+@keyframes apparaitFleur {
+    0% { opacity: 0; transform: scale(0.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- MACHINE À TICKETS --- */
+#zoneImprimante {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1000px;
+    z-index: 99999 !important;
+}
+
+.panneau-gauche { 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-end; 
+}
+
+#btnImprimer {
+    background-color: #82e0aa;
+    color: #145a32;
+    border: 2px solid #58d68d;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+#btnImprimer:hover { 
+    transform: scale(1.08); 
+    background-color: #58d68d; 
+}
+
+.bloc-machine { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.fente-conteneur {
+    width: 620px;
+    height: 65px;
+    background: linear-gradient(180deg, #e6e6e6 0%, #cccccc 50%, #b3b3b3 100%);
+    border: 4px solid #888888;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.fente-noire {
+    width: 530px;
+    height: 16px;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.8);
+}
+
+.conteneur-ticket { 
+    width: 580px; 
+    height: 640px; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+.ticket-caisse {
+    width: 520px;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-family: 'Courier Prime', monospace;
+    padding: 30px 25px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    position: absolute;
+    left: 30px;
+    top: -670px;
+    transition: top 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.ticket-caisse.derouler { 
+    top: 10px; 
+}
+
+.en-tete-ticket { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 4px; 
+}
+
+.titre-recu { 
+    font-weight: 700; 
+    font-size: 26px; 
+    letter-spacing: 2px; 
+}
+
+.info-ticket { 
+    font-size: 15px; 
+    color: #555; 
+}
+
+.ligne-pointillee { 
+    border-bottom: 2px dashed #777; 
+    margin: 18px 0; 
+}
+
+.corps-ticket { 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+    min-height: 280px; 
+}
+
+.titre-message { 
+    font-weight: bold; 
+    font-size: 24px; 
+    color: #000; 
+}
+
+.texte-message { 
+    font-size: 17px; 
+    line-height: 1.6; 
+    color: #222; 
+    white-space: pre-line; 
+}
+
+.img-ticket { 
+    max-width: 220px; 
+    max-height: 200px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    border: 1px solid #ccc; 
+    margin-top: 8px; 
+}
+
+.code-barre-box { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 4px; 
+}
+
+.code-barre {
+    width: 100%;
+    height: 50px;
+    background: repeating-linear-gradient(90deg, #000 0px, #000 3px, #fff 3px, #fff 6px, #000 6px, #000 10px);
+}
+
+.texte-code { 
+    font-size: 12px; 
+    letter-spacing: 2px; 
+}
+
+/* --- CARTES ET BOUTONS --- */
+#zoneQuestionFinal, #messageVictoire { 
+    position: relative; 
+    z-index: 99999 !important; 
+}
+
+.carte-blanche {
+    background-color: #ffffff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    max-width: 600px;
+}
+
+.titre-question, .carte-blanche h2 {
+    font-size: 28px;
+    color: #5C061C;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.boite-boutons { 
+    display: flex; 
+    gap: 25px; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    min-height: 80px; 
+}
+
+#btnOui {
+    background-color: #27ae60;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-out;
+}
+
+#btnNon {
+    background-color: #e74c3c;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: top 0.15s ease, left 0.15s ease;
+    z-index: 100000;
+}
+
+#btnGalaxie {
+    background: linear-gradient(135deg, #8e44ad, #ff007f);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 0, 127, 0.4);
+    animation: pulsertGalaxie 1.8s infinite;
+}
+
+@keyframes pulsertGalaxie {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* --- GALAXIE D'AMOUR --- */
+#zoneGalaxie {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0d010b;
+    z-index: 999999;
+}
+
+#galaxyCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.galaxie-overlay {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px;
+    pointer-events: none;
+}
+
+.titre-galaxie {
+    font-family: 'Sacramento', cursive;
+    font-size: 52px;
+    color: #ffb6c1;
+    text-shadow: 0 0 20px #ff007f, 0 0 40px #ff007f;
+}
+
+.sous-titre-galaxie {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+.conteneur-bulles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+}
+
+.bulle-galaxie {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease;
+    animation: flotter 4s ease-in-out infinite alternate;
+}
+
+.bulle-galaxie:hover {
+    transform: scale(1.12) !important;
+    background: rgba(255, 105, 180, 0.3);
+    box-shadow: 0 0 35px rgba(255, 20, 147, 0.8);
+}
+
+.b1 { top: 22%; left: 12%; animation-delay: 0s; }
+.b2 { top: 22%; right: 12%; animation-delay: 1s; }
+.b3 { bottom: 22%; left: 15%; animation-delay: 2s; }
+.b4 { bottom: 22%; right: 15%; animation-delay: 3s; }
+
+@keyframes flotter {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-20px); }
+}
+
+/* MODAL POP-UP */
+#modalMotsDoux {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000000;
+}
+
+.modal-cache { 
+    display: none !important; 
+}
+
+.modal-carte {
+    background: #ffffff;
+    color: #5C061C;
+    padding: 35px 40px;
+    border-radius: 24px;
+    max-width: 440px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(255, 20, 147, 0.5);
+}
+
+.modal-carte h2 { 
+    font-family: 'Poppins', sans-serif; 
+    font-size: 24px; 
+    color: #5C061C; 
+    margin-bottom: 15px; 
+}
+
+.modal-carte p { 
+    font-family: 'Poppins', sans-serif; 
+    font-size: 16px; 
+    line-height: 1.6; 
+    color: #333; 
+    margin-bottom: 25px; 
+}
+
+.btn-fermer-modal {
+    background-color: #5C061C;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- FOOTER --- */
+footer {
+    width: 100%;
+    padding-bottom: 20px;
+    height: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+footer p {
+    font-size: 22px;
+    color: #FFD6E5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer p::before, footer p::after {
+    content: "";
+    display: inline-block;
+    width: 50px;
+    height: 1px;
+    background-color: #FFD6E5;
+    opacity: 0.7;
+}
+/* =========================================================
+   AJUSTEMENT CAMÉRA + BOUTON DÉVELOPPER LE SOUVENIR
+   ========================================================= */
+
+/* On remonte légèrement toute la scène */
+#zoneImprimante {
+    top: 44% !important;
+}
+
+/* On garde la caméra bien centrée */
+.camera-scene {
+    position: relative;
+}
+
+/* Le bouton est déplacé vers la droite */
+.panneau-bouton-haut {
+    position: absolute;
+    top: 115px;
+    left: calc(50% + 300px);
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+/* Le bouton reste au-dessus de tout */
+#btnImprimer {
+    position: relative;
+    z-index: 200;
+    white-space: nowrap;
+}
+
+/* Sur les écrans plus petits */
+@media (max-width: 800px) {
+
+    #zoneImprimante {
+        top: 47% !important;
+    }
+
+    .panneau-bouton-haut {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-top: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    #zoneImprimante {
+        top: 49% !important;
+    }
+
+    .panneau-bouton-haut {
+        margin-top: 15px;
+    }
+}

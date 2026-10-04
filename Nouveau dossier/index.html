@@ -1,0 +1,4334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pour toi ♡</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Three.js et OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================================
+           POLICE RANSOM NOTE
+        ========================================================= */
+
+        @font-face {
+            font-family: 'TheRansomNotesFont';
+            src: url('TheRansomNotesFont.ttf');
+        }
+
+
+        /* =========================================================
+           BASE
+        ========================================================= */
+
+        body {
+            background-color: #4A0E17;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cache {
+            display: none !important;
+        }
+
+
+        /* =========================================================
+           PRÉNOM
+        ========================================================= */
+
+        .firas-arc-container {
+            position: absolute;
+            top: 20%;
+            left: 17%;
+            transform: rotate(-28deg);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8px;
+            z-index: 600;
+        }
+
+        .firas-arc-container span {
+            font-family: 'TheRansomNotesFont', cursive, sans-serif;
+            font-size: 3rem;
+            padding: 6px 12px;
+            display: inline-block;
+            border-radius: 4px;
+            box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .firas-arc-container .lettre-f {
+            transform: translateY(18px) rotate(-20deg);
+            background-color: #F0D8D8;
+            color: #5C0A19;
+        }
+
+        .firas-arc-container .lettre-i {
+            transform: translateY(6px) rotate(-10deg);
+            background-color: #8B1D2C;
+            color: #F0D8D8;
+        }
+
+        .firas-arc-container .lettre-r {
+            transform: translateY(0px) rotate(0deg);
+            background-color: #E2C085;
+            color: #3B050E;
+        }
+
+        .firas-arc-container .lettre-a {
+            transform: translateY(6px) rotate(10deg);
+            background-color: #F0D8D8;
+            color: #5C0A19;
+        }
+
+        .firas-arc-container .lettre-s {
+            transform: translateY(18px) rotate(20deg);
+            background-color: #8B1D2C;
+            color: #F0D8D8;
+        }
+
+        .firas-arc-container span:hover {
+            transform: scale(1.25) rotate(0deg) !important;
+        }
+
+
+        /* =========================================================
+           TITRES
+        ========================================================= */
+
+        h1,
+        h2,
+        .sous-titre {
+            font-family: 'Sacramento', cursive !important;
+            color: #ffffff;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 58px;
+            margin-bottom: 10px;
+            margin-top: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        h2 {
+            font-size: 42px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .sous-titre {
+            font-size: 32px;
+            opacity: 0.85;
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================================================
+           BARRE SUPÉRIEURE
+        ========================================================= */
+
+        .barre-haut {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #4A0E17;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            color: #ffffff;
+        }
+
+        .barre-haut .logo {
+            font-family: 'Sacramento', cursive;
+            font-size: 32px;
+            font-weight: normal;
+        }
+
+        .barre-haut .date {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           DÉCORATIONS
+        ========================================================= */
+
+        .deco-love-angle {
+            position: fixed;
+            top: 50px;
+            right: 0;
+            width: 360px;
+            max-width: 45vw;
+            height: auto;
+            z-index: 999;
+            pointer-events: none;
+            filter: drop-shadow(-2px 4px 6px rgba(0,0,0,0.3));
+            animation: apparitionAngle 1.2s ease-out forwards;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes apparitionAngle {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .deco-gateau-bas {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 340px;
+            max-width: 60vw;
+            height: auto;
+            z-index: 900;
+            pointer-events: none;
+            animation:
+                descenteGateau 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                flottementGateau 3s ease-in-out infinite 1.5s;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes descenteGateau {
+            0% {
+                transform: translateY(-100vh) rotate(-10deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flottementGateau {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+
+        /* =========================================================
+           BOUTONS DORÉS
+        ========================================================= */
+
+        .btn-dore {
+            background: linear-gradient(
+                135deg,
+                #bf953f 0%,
+                #fcf6ba 25%,
+                #b38728 50%,
+                #fbf5b7 75%,
+                #aa771c 100%
+            ) !important;
+
+            color: #2a1500 !important;
+
+            font-family: 'Sacramento', cursive !important;
+            font-size: 28px !important;
+            font-weight: bold !important;
+
+            padding: 10px 30px !important;
+
+            border-radius: 30px !important;
+            border: 1px solid #ffe599 !important;
+
+            box-shadow:
+                0 4px 15px rgba(191, 149, 63, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+
+            transition: all 0.3s ease !important;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-dore:hover {
+            transform: scale(1.06) translateY(-2px) !important;
+
+            box-shadow:
+                0 6px 20px rgba(255, 215, 0, 0.6),
+                inset 0 1px 3px rgba(255, 255, 255, 0.9) !important;
+
+            background: linear-gradient(
+                135deg,
+                #cb9b3e 0%,
+                #ffffff 30%,
+                #c4932f 50%,
+                #ffffff 70%,
+                #b88222 100%
+            ) !important;
+        }
+
+
+        /* =========================================================
+           PAGE 1
+        ========================================================= */
+
+        #page1 {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 85vh;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #page1.active {
+            display: flex;
+        }
+
+
+        /* =========================================================
+           PAGE 2 - ENVELOPPE
+        ========================================================= */
+
+        #zoneEnveloppe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 20;
+        }
+
+
+        /* =========================================================
+           FLEURS
+        ========================================================= */
+
+        #fleursConteneur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .fleur-recouvrement {
+            position: absolute;
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           =========================================================
+           NOUVELLE CAMÉRA + PELLICULE
+           =========================================================
+        ========================================================= */
+
+        #zoneImprimante {
+            position: absolute !important;
+
+            top: 50% !important;
+            left: 50% !important;
+
+            transform: translate(-50%, -50%) !important;
+
+            width: min(1100px, 96vw) !important;
+            max-width: 1100px !important;
+
+            min-height: 650px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+
+            z-index: 99999 !important;
+
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+
+
+        /* ---------------------------------------------------------
+           CAMÉRA
+        --------------------------------------------------------- */
+
+        .camera-scene {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        .camera-body {
+            position: relative;
+
+            width: min(510px, 72vw);
+            height: auto;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            filter:
+                drop-shadow(0 14px 15px rgba(0, 0, 0, 0.45))
+                drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+
+            z-index: 30;
+
+            transition: transform 0.3s ease;
+        }
+
+        .camera-body:hover {
+            transform: translateY(-3px);
+        }
+
+        .camera-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+
+        /* ---------------------------------------------------------
+           PETITE OMBRE SOUS LA CAMÉRA
+        --------------------------------------------------------- */
+
+        .camera-shadow {
+            width: min(430px, 62vw);
+            height: 15px;
+
+            margin-top: -2px;
+
+            background: radial-gradient(
+                ellipse,
+                rgba(0,0,0,0.42) 0%,
+                rgba(0,0,0,0.20) 45%,
+                rgba(0,0,0,0) 75%
+            );
+
+            filter: blur(3px);
+
+            z-index: 1;
+        }
+
+
+        /* ---------------------------------------------------------
+           SORTIE DU FILM
+        --------------------------------------------------------- */
+
+        .film-output {
+            position: relative;
+
+            width: min(470px, 68vw);
+            height: 30px;
+
+            margin-top: -7px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 25;
+        }
+
+        .film-output-slot {
+            width: 78%;
+            height: 12px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #161616,
+                    #050505,
+                    #202020
+                );
+
+            border-radius: 8px;
+
+            box-shadow:
+                inset 0 2px 4px rgba(255,255,255,0.05),
+                0 3px 5px rgba(0,0,0,0.4);
+        }
+
+
+        /* ---------------------------------------------------------
+           BOUTON
+        --------------------------------------------------------- */
+
+        .panneau-bouton-haut {
+            position: relative;
+            z-index: 100;
+
+            margin-top: 5px;
+            margin-bottom: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #btnImprimer {
+            font-size: 25px !important;
+
+            padding:
+                9px 28px !important;
+
+            min-width: 245px;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 6px 18px rgba(0,0,0,0.35),
+                0 0 20px rgba(255,215,0,0.12) !important;
+        }
+
+
+        /* ---------------------------------------------------------
+           ZONE FILM
+        --------------------------------------------------------- */
+
+        .film-stage {
+            position: relative;
+
+            width: min(900px, 94vw);
+
+            height: 510px;
+
+            overflow: hidden;
+
+            margin-top: 3px;
+
+            z-index: 10;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            pointer-events: none;
+        }
+
+
+        /* ---------------------------------------------------------
+           PELLICULE
+        --------------------------------------------------------- */
+
+        .film-strip {
+            position: absolute;
+
+            top: -600px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(850px, 92vw);
+
+            min-height: 480px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #090909 0,
+                    #111111 44px,
+                    #191919 44px,
+                    #191919 calc(100% - 44px),
+                    #090909 calc(100% - 44px),
+                    #090909 100%
+                );
+
+            box-shadow:
+                0 20px 35px rgba(0,0,0,0.45),
+                inset 0 0 25px rgba(0,0,0,0.65);
+
+            padding:
+                28px 52px;
+
+            box-sizing: border-box;
+
+            opacity: 0;
+
+            transition:
+                top 1s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity 0.35s ease;
+
+            pointer-events: auto;
+        }
+
+        .film-strip.visible {
+            top: 0;
+            opacity: 1;
+        }
+
+
+        /* ---------------------------------------------------------
+           PERFORATIONS
+        --------------------------------------------------------- */
+
+        .film-strip::before,
+        .film-strip::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            bottom: 0;
+
+            width: 28px;
+
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 9px,
+                    #f4f4f4 9px,
+                    #f4f4f4 29px,
+                    transparent 29px,
+                    transparent 43px
+                );
+
+            opacity: 0.95;
+
+            pointer-events: none;
+        }
+
+        .film-strip::before {
+            left: 8px;
+        }
+
+        .film-strip::after {
+            right: 8px;
+        }
+
+
+        /* ---------------------------------------------------------
+           CADRE CENTRAL DU FILM
+        --------------------------------------------------------- */
+
+        .film-frame {
+            position: relative;
+
+            width: 100%;
+            min-height: 420px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffdf8,
+                    #f7f0df
+                );
+
+            border: 1px solid rgba(0,0,0,0.25);
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.35),
+                inset 0 0 0 5px rgba(255,255,255,0.35);
+
+            padding: 28px;
+
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            overflow: hidden;
+        }
+
+
+        /* ---------------------------------------------------------
+           NUMÉRO DU TICKET
+        --------------------------------------------------------- */
+
+        .film-number {
+            position: absolute;
+
+            top: 10px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #8b1d2c;
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+            opacity: 0.7;
+
+            white-space: nowrap;
+        }
+
+
+        /* ---------------------------------------------------------
+           PHOTO
+        --------------------------------------------------------- */
+
+        .film-photo-area {
+            flex: 0 0 42%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            position: relative;
+        }
+
+        .film-photo-frame {
+            width: 100%;
+            max-width: 300px;
+
+            aspect-ratio: 4 / 3;
+
+            background: #111;
+
+            border: 9px solid #ffffff;
+
+            box-sizing: border-box;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.3);
+
+            transform: rotate(-1.5deg);
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .film-photo-frame::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.15),
+                    transparent 45%
+                );
+
+            pointer-events: none;
+        }
+
+        .film-photo {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .photo-caption {
+            font-family: 'Sacramento', cursive;
+
+            color: #5c061c;
+
+            font-size: 25px;
+
+            transform: rotate(-2deg);
+        }
+
+
+        /* ---------------------------------------------------------
+           TEXTE
+        --------------------------------------------------------- */
+
+        .film-text-area {
+            flex: 1;
+
+            height: 360px;
+
+            overflow-y: auto;
+
+            padding:
+                15px 20px 15px 5px;
+
+            box-sizing: border-box;
+
+            text-align: left;
+
+            scrollbar-width: thin;
+            scrollbar-color: #b38728 transparent;
+        }
+
+        .film-text-area::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .film-text-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .film-text-area::-webkit-scrollbar-thumb {
+            background: #b38728;
+            border-radius: 10px;
+        }
+
+        .film-title {
+            font-family: 'Sacramento', cursive;
+
+            font-size: 34px;
+
+            line-height: 1.05;
+
+            color: #5c061c;
+
+            margin: 0 0 12px 0;
+
+            text-align: left;
+        }
+
+        .film-text {
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+            color: #292020;
+
+            margin: 0;
+
+            text-align: left;
+        }
+
+        .film-signature {
+            margin-top: 18px;
+
+            font-family: 'Sacramento', cursive;
+
+            font-size: 27px;
+
+            color: #8b1d2c;
+        }
+
+
+        /* ---------------------------------------------------------
+           PETITES MARQUES DU FILM
+        --------------------------------------------------------- */
+
+        .film-top-label,
+        .film-bottom-label {
+            position: absolute;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-family: 'Courier Prime', monospace;
+
+            font-size: 9px;
+
+            color: #d9d9d9;
+
+            letter-spacing: 2px;
+
+            z-index: 5;
+
+            opacity: 0.7;
+        }
+
+        .film-top-label {
+            top: 7px;
+        }
+
+        .film-bottom-label {
+            bottom: 7px;
+        }
+
+
+        /* ---------------------------------------------------------
+           ÉTAT D'ATTENTE
+        --------------------------------------------------------- */
+
+        .film-empty {
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(850px, 92vw);
+            height: 480px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            pointer-events: none;
+
+            opacity: 0.8;
+
+            transition: opacity 0.3s ease;
+        }
+
+        .film-empty.hidden {
+            opacity: 0;
+        }
+
+        .film-empty-text {
+            font-family: 'Sacramento', cursive;
+
+            font-size: 32px;
+
+            color: #f0d8d8;
+
+            text-shadow:
+                0 2px 8px rgba(0,0,0,0.4);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE CAMÉRA / FILM
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            #zoneImprimante {
+                top: 52% !important;
+
+                min-height: 620px;
+            }
+
+            .camera-body {
+                width: min(400px, 78vw);
+            }
+
+            .film-stage {
+                height: 500px;
+            }
+
+            .film-strip {
+                width: 94vw;
+
+                padding:
+                    28px 45px;
+            }
+
+            .film-frame {
+                gap: 18px;
+
+                padding: 25px;
+            }
+
+            .film-photo-area {
+                flex-basis: 38%;
+            }
+
+            .film-text-area {
+                height: 360px;
+            }
+
+            .film-title {
+                font-size: 29px;
+            }
+
+            .film-text {
+                font-size: 12px;
+                line-height: 1.65;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            #zoneImprimante {
+                top: 54% !important;
+
+                width: 100vw !important;
+            }
+
+            .camera-body {
+                width: 330px;
+                max-width: 80vw;
+            }
+
+            .camera-shadow {
+                width: 280px;
+            }
+
+            #btnImprimer {
+                font-size: 21px !important;
+
+                min-width: 210px;
+            }
+
+            .film-stage {
+                height: 480px;
+
+                width: 100vw;
+            }
+
+            .film-strip {
+                width: 94vw;
+
+                padding:
+                    25px 35px;
+            }
+
+            .film-frame {
+                flex-direction: column;
+
+                justify-content: flex-start;
+
+                gap: 12px;
+
+                min-height: 430px;
+
+                padding:
+                    30px 20px 20px;
+            }
+
+            .film-photo-area {
+                flex: none;
+
+                width: 100%;
+            }
+
+            .film-photo-frame {
+                width: 190px;
+
+                height: 130px;
+            }
+
+            .photo-caption {
+                font-size: 21px;
+            }
+
+            .film-text-area {
+                width: 100%;
+                height: 235px;
+
+                padding-right: 10px;
+            }
+
+            .film-title {
+                font-size: 27px;
+
+                text-align: center;
+            }
+
+            .film-text {
+                font-size: 11.5px;
+
+                line-height: 1.6;
+
+                text-align: left;
+            }
+
+            .film-signature {
+                font-size: 24px;
+            }
+
+            .film-strip::before,
+            .film-strip::after {
+                width: 20px;
+            }
+
+            .film-strip::before {
+                left: 5px;
+            }
+
+            .film-strip::after {
+                right: 5px;
+            }
+        }
+
+
+        /* =========================================================
+           GALAXIE
+        ========================================================= */
+
+        .galaxie-overlay {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            text-align: center;
+
+            z-index: 50;
+
+            padding-top: 20px;
+        }
+
+        .titre-galaxie {
+            font-family: 'Sacramento', cursive !important;
+
+            font-size: 42px !important;
+
+            color: #ffffff !important;
+
+            text-shadow: 0 0 15px #ff1493;
+
+            margin: 0;
+        }
+
+        .sous-titre-galaxie {
+            font-family: 'Poppins', sans-serif !important;
+
+            font-size: 14px !important;
+
+            color: #ffb6c1 !important;
+
+            margin-top: 5px;
+        }
+
+        .texte-galaxie-3d {
+            position: absolute;
+
+            transform: translate(-50%, -50%);
+
+            background: rgba(255, 20, 147, 0.08);
+
+            border: 1px solid rgba(255, 105, 180, 0.25);
+
+            color: rgba(255, 255, 255, 0.85);
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 11px;
+
+            padding: 4px 10px;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(2px);
+
+            box-shadow: 0 0 6px rgba(255, 20, 147, 0.15);
+
+            transition: all 0.2s ease;
+
+            z-index: 100;
+
+            white-space: nowrap;
+        }
+
+        .texte-galaxie-3d:hover {
+            background: rgba(255, 20, 147, 0.4);
+
+            border-color: rgba(255, 255, 255, 0.8);
+
+            color: #ffffff;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.1);
+
+            box-shadow: 0 0 15px #ff1493;
+        }
+
+        .bouton-secret-coeur {
+            position: absolute;
+
+            transform: translate(-50%, -50%);
+
+            background: rgba(255, 20, 147, 0.08);
+
+            border: 1px solid rgba(255, 105, 180, 0.25);
+
+            color: rgba(255, 255, 255, 0.85);
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 11px;
+
+            padding: 4px 10px;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(2px);
+
+            box-shadow: 0 0 6px rgba(255, 20, 147, 0.15);
+
+            transition: all 0.2s ease;
+
+            z-index: 200;
+
+            white-space: nowrap;
+        }
+
+        .bouton-secret-coeur:hover {
+            background: rgba(255, 20, 147, 0.4);
+
+            border-color: rgba(255, 255, 255, 0.8);
+
+            color: #ffffff;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.1);
+
+            box-shadow: 0 0 15px #ff1493;
+        }
+
+
+        /* =========================================================
+           MODALES
+        ========================================================= */
+
+        .modal-cache {
+            display: none !important;
+        }
+
+        #modalMotsDoux,
+        #modalNotation {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background: rgba(0, 0, 0, 0.85);
+
+            backdrop-filter: blur(10px);
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            z-index: 99999;
+        }
+
+        .modal-carte {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(35, 10, 40, 0.95),
+                    rgba(70, 15, 60, 0.95)
+                );
+
+            border: 2px solid #ff69b4;
+
+            border-radius: 24px;
+
+            padding: 28px;
+
+            max-width: 460px;
+
+            width: 88%;
+
+            text-align: center;
+
+            box-shadow:
+                0 0 40px rgba(255, 20, 147, 0.7);
+
+            color: #ffffff;
+
+            font-family: 'Poppins', sans-serif;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .modal-carte h2 {
+            font-family: 'Poppins', sans-serif !important;
+
+            margin-top: 0;
+
+            color: #ff69b4;
+
+            font-size: 20px;
+
+            text-shadow:
+                0 0 12px rgba(255, 105, 180, 0.6);
+        }
+
+        .modal-carte p {
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin: 10px 0;
+
+            color: #ffe4e1;
+        }
+
+        .conteneur-flex-jauge {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 20px;
+
+            margin: 20px 0;
+        }
+
+        .conteneur-jauge-verticale {
+            width: 26px;
+            height: 180px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border: 2px solid #ff69b4;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow:
+                inset 0 0 10px rgba(0,0,0,0.5),
+                0 0 15px rgba(255, 20, 147, 0.4);
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-end;
+        }
+
+        .remplissage-jauge-verticale {
+            width: 100%;
+            height: 0%;
+
+            background:
+                linear-gradient(
+                    0deg,
+                    #ff007f,
+                    #ff69b4,
+                    #ffffff
+                );
+
+            border-radius: 20px;
+
+            transition:
+                height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+            box-shadow: 0 0 15px #ff1493;
+        }
+
+        .texte-jauge-verticale {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                rotate(-90deg);
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #ffffff;
+
+            white-space: nowrap;
+
+            text-shadow: 0 0 6px #000;
+        }
+
+        .grille-notes-verticale {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 8px;
+        }
+
+        .btn-note {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            border: 1px solid #ff69b4;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .btn-note:hover,
+        .btn-note.selectionne {
+            background: #ff1493;
+
+            border-color: #ffffff;
+
+            box-shadow: 0 0 12px #ff1493;
+
+            transform: scale(1.15);
+        }
+
+        .champ-avis {
+            width: 100%;
+            height: 60px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid rgba(255, 105, 180, 0.5);
+
+            background:
+                rgba(10, 0, 20, 0.6);
+
+            color: #fff;
+
+            padding: 10px;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 13px;
+
+            resize: none;
+
+            box-sizing: border-box;
+
+            outline: none;
+
+            margin-bottom: 15px;
+        }
+
+        .btn-fermer-modal,
+        .btn-valider-note {
+            background:
+                linear-gradient(
+                    45deg,
+                    #ff1493,
+                    #ff69b4
+                );
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 24px;
+
+            border-radius: 25px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 0 15px rgba(255, 20, 147, 0.5);
+        }
+
+        .btn-fermer-modal:hover,
+        .btn-valider-note:hover {
+            transform: scale(1.08);
+
+            box-shadow:
+                0 0 25px #ff1493;
+        }
+
+        .grand-titre-anniv {
+            font-size: 28px !important;
+
+            font-weight: 900 !important;
+
+            color: #ffffff !important;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            text-shadow:
+                0 0 10px #ff007f,
+                0 0 20px #ff1493,
+                0 0 40px #ff69b4,
+                0 0 60px #ffffff;
+
+            margin-bottom: 15px !important;
+
+            animation:
+                impulsionTitre 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes impulsionTitre {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.08);
+            }
+        }
+
+        .effet-explosion {
+            animation:
+                explosionCarte
+                0.6s
+                cubic-bezier(0.175, 0.885, 0.32, 1.275)
+                forwards;
+        }
+
+        @keyframes explosionCarte {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================================================
+           ANIMATION : LA PELLICULE SORT DE L'APPAREIL PHOTO
+        ========================================================= */
+
+        #zoneImprimante {
+            --camera-output-y: 330px;
+        }
+
+        .film-stage {
+            position: absolute !important;
+            top: var(--camera-output-y) !important;
+            left: 50% !important;
+            width: min(900px, 94vw) !important;
+            height: 510px !important;
+            margin: 0 !important;
+            transform: translateX(-50%) !important;
+            overflow: hidden !important;
+            z-index: 20 !important;
+            pointer-events: none;
+        }
+
+        .film-strip {
+            top: -520px;
+            opacity: 0;
+            transition:
+                top 1.15s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity 0.25s ease;
+            pointer-events: auto;
+        }
+
+        .film-strip.visible {
+            top: 0;
+            opacity: 1;
+        }
+
+        .camera-body {
+            z-index: 40;
+        }
+
+        .camera-body.impression {
+            animation: secousseCamera 0.32s ease-in-out;
+        }
+
+        @keyframes secousseCamera {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            25% {
+                transform: translateY(2px) scale(0.99);
+            }
+            50% {
+                transform: translateY(-3px) scale(1.01);
+            }
+            75% {
+                transform: translateY(1px) scale(1);
+            }
+        }
+
+        .film-output {
+            z-index: 45;
+        }
+
+        .film-output-slot {
+            position: relative;
+            z-index: 50;
+        }
+
+        .panneau-bouton-haut {
+            z-index: 100;
+        }
+
+        @media (max-width: 800px) {
+            #zoneImprimante {
+                --camera-output-y: 275px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #zoneImprimante {
+                --camera-output-y: 225px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         DÉCORATIONS FIXES
+    ========================================================== -->
+
+    <img
+        src="love_corner.png"
+        alt="Love Pattern"
+        id="decoLove"
+        class="deco-love-angle"
+    >
+
+    <img
+        src="gateau.png"
+        alt="Gâteau Anniversaire"
+        id="decoGateau"
+        class="deco-gateau-bas"
+    >
+
+
+    <!-- =========================================================
+         FLEURS
+    ========================================================== -->
+
+    <div id="fleursConteneur"></div>
+
+
+    <!-- =========================================================
+         BARRE SUPÉRIEURE
+    ========================================================== -->
+
+    <nav class="barre-haut">
+        <span class="logo">Pour toi ♡</span>
+
+        <span class="date">
+            05/10/2009 ♡
+        </span>
+    </nav>
+
+
+    <!-- =========================================================
+         CONTENU
+    ========================================================== -->
+
+    <div class="zone-contenu">
+
+
+        <!-- =====================================================
+             PAGE 1
+        ====================================================== -->
+
+        <div id="page1" class="page active">
+
+            <!-- Prénom -->
+            <div class="firas-arc-container">
+
+                <span class="lettre-f">f</span>
+                <span class="lettre-i">i</span>
+                <span class="lettre-r">r</span>
+                <span class="lettre-a">a</span>
+                <span class="lettre-s">s</span>
+
+            </div>
+
+
+            <h1>
+                Joyeux anniversaire mon amour 3mriiii ♡
+            </h1>
+
+            <h2>
+                J'ai créé une petite surprise pour toi
+            </h2>
+
+            <p class="sous-titre">
+                J'espère que ça va te plaire même si ce n'est pas grand-chose
+            </p>
+
+            <button
+                id="btn-surprise"
+                class="btn-dore"
+                onclick="afficherPage2()"
+            >
+                ♡ Découvre ta surprise
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PAGE 2
+        ====================================================== -->
+
+        <div id="page2" class="page">
+
+
+            <!-- =================================================
+                 ENVELOPPE
+            ================================================== -->
+
+            <div id="zoneEnveloppe">
+
+                <div
+                    class="enveloppe-container"
+                    id="enveloppeBox"
+                    onclick="ouvrirEnveloppe()"
+                >
+
+                    <img
+                        id="imgEnveloppe"
+                        src="enveloppe_fermee.png"
+                        alt="Enveloppe"
+                        class="img-enveloppe"
+                    >
+
+                </div>
+
+                <p
+                    class="instruction"
+                    id="texteInstruction"
+                >
+                    Clique sur l'enveloppe pour l'ouvrir ! ✨
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NOUVELLE CAMÉRA / PELLICULE
+            ================================================== -->
+
+            <div
+                id="zoneImprimante"
+                class="cache"
+            >
+
+                <!--
+                    CAMÉRA
+                -->
+
+                <div class="camera-scene">
+
+
+                    <!-- Appareil photo vintage -->
+
+                    <div class="camera-body">
+
+                        <img
+                            src="12771.jpg"
+                            alt="Appareil photo vintage"
+                            class="camera-image"
+                        >
+
+                    </div>
+
+
+                    <!-- Ombre -->
+
+                    <div class="camera-shadow"></div>
+
+
+                    <!-- Fente de sortie -->
+
+                    <div class="film-output">
+
+                        <div class="film-output-slot"></div>
+
+                    </div>
+
+
+                    <!-- Bouton -->
+
+                    <div class="panneau-bouton-haut">
+
+                        <button
+                            id="btnImprimer"
+                            class="btn-dore"
+                            onclick="imprimerProchainTicket()"
+                        >
+                            🎞️ Développer le souvenir (1/3)
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ZONE OÙ LA PELLICULE SORT
+                ================================================== -->
+
+                <div class="film-stage">
+
+
+                    <!-- Message avant impression -->
+
+                    <div
+                        id="filmEmpty"
+                        class="film-empty"
+                    >
+
+                        <div class="film-empty-text">
+                            Ton premier souvenir va apparaître ici ♡
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         TICKET / FILM
+                    ================================================== -->
+
+                    <div
+                        id="filmStrip"
+                        class="film-strip"
+                    >
+
+                        <div class="film-top-label">
+                            SOUVENIR • 05.10.2009 • A01
+                        </div>
+
+
+                        <div
+                            id="filmFrame"
+                            class="film-frame"
+                        >
+
+                            <!-- Numéro -->
+
+                            <div
+                                id="filmNumber"
+                                class="film-number"
+                            >
+                                SOUVENIR 01 / 03
+                            </div>
+
+
+                            <!-- PHOTO -->
+
+                            <div class="film-photo-area">
+
+                                <div class="film-photo-frame">
+
+                                    <img
+                                        id="filmPhoto"
+                                        class="film-photo"
+                                        src="photo1.jpg"
+                                        alt="Souvenir"
+                                    >
+
+                                </div>
+
+                                <div
+                                    id="photoCaption"
+                                    class="photo-caption"
+                                >
+                                    un petit souvenir ♡
+                                </div>
+
+                            </div>
+
+
+                            <!-- TEXTE -->
+
+                            <div class="film-text-area">
+
+                                <h2
+                                    id="filmTitle"
+                                    class="film-title"
+                                >
+                                    Happy birthday 🥳
+                                </h2>
+
+                                <p
+                                    id="filmText"
+                                    class="film-text"
+                                >
+                                </p>
+
+                                <div
+                                    id="filmSignature"
+                                    class="film-signature"
+                                >
+                                    Avec tout mon amour ♡
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="film-bottom-label">
+                            END OF FRAME • DEVELOPED WITH LOVE
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION FINALE
+            ================================================== -->
+
+            <div
+                id="zoneQuestionFinal"
+                class="cache"
+            >
+
+                <div class="carte-blanche">
+
+                    <h2 class="titre-question">
+                        Est-ce que tu m'aimes encore plus aujourd'hui ? 💖
+                    </h2>
+
+                    <div class="boite-boutons">
+
+                        <button
+                            id="btnOui"
+                            class="btn-dore"
+                            onclick="reponseOui()"
+                        >
+                            OUI ! 🥰
+                        </button>
+
+                        <button
+                            id="btnNon"
+                            onmouseover="esquiverBouton()"
+                            onclick="esquiverBouton()"
+                        >
+                            Non 😜
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MESSAGE VICTOIRE
+            ================================================== -->
+
+            <div
+                id="messageVictoire"
+                class="cache"
+            >
+
+                <div class="carte-blanche">
+
+                    <h2>
+                        Je le savais ! Je t'aime tellement mon amour ! ❤️✨
+                    </h2>
+
+                    <button
+                        id="btnGalaxie"
+                        class="btn-dore"
+                        onclick="ouvrirGalaxie()"
+                    >
+                        Continuer vers notre univers ✨
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PAGE 3 : GALAXIE
+        ====================================================== -->
+
+        <div
+            id="zoneGalaxie"
+            class="cache"
+        >
+
+            <div
+                id="galaxy3DContainer"
+                style="
+                    width:100vw;
+                    height:100vh;
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    overflow:hidden;
+                    background:#020005;
+                "
+            ></div>
+
+
+            <div
+                class="galaxie-overlay"
+                style="pointer-events:none;"
+            >
+
+                <h1 class="titre-galaxie">
+                    Une Galaxie d'Amour pour Toi ✨
+                </h1>
+
+                <p class="sous-titre-galaxie">
+                    Fais glisser pour tourner autour |
+                    Touche les mots doux ♡
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MODALE MOTS DOUX
+            ================================================== -->
+
+            <div
+                id="modalMotsDoux"
+                class="modal-cache"
+                onclick="fermerModal()"
+            >
+
+                <div
+                    class="modal-carte"
+                    onclick="event.stopPropagation()"
+                >
+
+                    <h2 id="modalTitre">
+                        Titre
+                    </h2>
+
+                    <p id="modalTexte">
+                        Message ici...
+                    </p>
+
+                    <button
+                        class="btn-dore"
+                        style="padding:8px 20px; border-radius:20px;"
+                        onclick="fermerModal()"
+                    >
+                        Fermer ♡
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MODALE NOTATION
+            ================================================== -->
+
+            <div
+                id="modalNotation"
+                class="modal-cache"
+                onclick="fermerModalNotation()"
+            >
+
+                <div
+                    class="modal-carte"
+                    id="carteNotation"
+                    onclick="event.stopPropagation()"
+                >
+
+                    <h2 id="titreNotationModal">
+                        Combien d'amour donnes-tu à ce site ? 💖
+                    </h2>
+
+
+                    <div class="conteneur-flex-jauge">
+
+                        <div class="conteneur-jauge-verticale">
+
+                            <div
+                                id="barreJaugeVert"
+                                class="remplissage-jauge-verticale"
+                            ></div>
+
+                            <span
+                                id="texteJaugeVert"
+                                class="texte-jauge-verticale"
+                            >
+                                0 / 10
+                            </span>
+
+                        </div>
+
+
+                        <div class="grille-notes-verticale">
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(1)"
+                            >
+                                1
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(2)"
+                            >
+                                2
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(3)"
+                            >
+                                3
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(4)"
+                            >
+                                4
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(5)"
+                            >
+                                5
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(6)"
+                            >
+                                6
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(7)"
+                            >
+                                7
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(8)"
+                            >
+                                8
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(9)"
+                            >
+                                9
+                            </button>
+
+                            <button
+                                class="btn-note"
+                                onclick="definirNoteJauge(10)"
+                            >
+                                10
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="texteAvis"
+                        class="champ-avis"
+                        placeholder="Laisse-moi un petit mot sur ce que tu en as pensé... 🥰"
+                    ></textarea>
+
+
+                    <button
+                        id="btnValiderNote"
+                        class="btn-valider-note"
+                        onclick="envoyerNoteEtExploser()"
+                    >
+                        Envoyer mon amour ♡
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <p>
+            Créé juste pour toi ^O^
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        let etapeActuelle = 0;
+
+        let tailleOui = 1;
+
+        let noteSelectionnee = 0;
+
+
+
+        /* =========================================================
+           PAGE 1 → PAGE 2
+        ========================================================= */
+
+        function afficherPage2() {
+
+            const decoGateau =
+                document.getElementById('decoGateau');
+
+            const decoLove =
+                document.getElementById('decoLove');
+
+
+            if (decoGateau) {
+                decoGateau.style.display = 'none';
+            }
+
+            if (decoLove) {
+                decoLove.style.display = 'none';
+            }
+
+
+            document
+                .getElementById('page1')
+                .classList
+                .remove('active');
+
+
+            document
+                .getElementById('page2')
+                .classList
+                .add('active');
+
+
+            document
+                .getElementById('zoneEnveloppe')
+                .classList
+                .remove('cache');
+
+
+            document
+                .getElementById('zoneImprimante')
+                .classList
+                .add('cache');
+
+        }
+
+
+
+        /* =========================================================
+           OUVERTURE ENVELOPPE
+        ========================================================= */
+
+        function ouvrirEnveloppe() {
+
+            const envBox =
+                document.getElementById('enveloppeBox');
+
+            const imgEnv =
+                document.getElementById('imgEnveloppe');
+
+
+            if (!envBox.classList.contains('ouverte')) {
+
+                envBox.classList.add('ouverte');
+
+                imgEnv.src =
+                    'enveloppe_ouverte.png';
+
+
+                genererTapisserieFleurs();
+
+
+                setTimeout(() => {
+
+                    const conteneurFleurs =
+                        document.getElementById('fleursConteneur');
+
+
+                    if (conteneurFleurs) {
+
+                        conteneurFleurs.style.opacity = '0';
+
+
+                        setTimeout(() => {
+
+                            conteneurFleurs.innerHTML = '';
+
+                        }, 1500);
+
+                    }
+
+                }, 2500);
+
+
+
+                setTimeout(() => {
+
+                    document
+                        .getElementById('zoneEnveloppe')
+                        .classList
+                        .add('cache');
+
+
+                    document
+                        .getElementById('zoneImprimante')
+                        .classList
+                        .remove('cache');
+
+
+                }, 1200);
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           DONNÉES DES 3 SOUVENIRS
+        ========================================================= */
+
+        const souvenirs = [
+
+            {
+                numero: "SOUVENIR 01 / 03",
+
+                photo: "photo1.jpg",
+
+                caption: "pour toi ♡",
+
+                titre: "Happy birthday 🥳",
+
+                texte: `
+                    Happy birthday 🥳 to you.<br><br>
+
+                    I hope the day of your 17th birthday goes really well 🫡.
+                    I wanted to wish you a happy birthday in a pretty special way,
+                    and I hope I succeeded. 😅<br><br>
+
+                    I also wanted to tell you that I’m proud of you 🙃
+                    and of the progress you make every day 😁.<br><br>
+
+                    I love you, and I’ll never say it enough 😍💋.<br>
+
+                    You’re an incredible person, and you keep becoming even more
+                    amazing every day 😗😗
+                `,
+
+                signature: "Happy birthday, my love ♡"
+
+            },
+
+
+            {
+                numero: "SOUVENIR 02 / 03",
+
+                photo: "photo2.jpg",
+
+                caption: "toi & moi ♡",
+
+                titre: "What do you mean to me? 😅",
+
+                texte: `
+                    What do you mean to me? 😅<br><br>
+
+                    Honestly, you’re everything to me 🫣 My boyfriend as well as my
+                    best friend 🙃. With you, I discovered what it feels like to
+                    have someone who cares about me, loves me, and worries about
+                    me 😅.<br><br>
+
+                    Today, I don’t think I could live without your presence 🥲.
+                    You mean so much to me because you’re the person I discovered
+                    what it feels like to love and be loved with 😋, to feel
+                    important in someone’s eyes 🫠.<br><br>
+
+                    You’ve literally become my whole world, the person I would
+                    want to spend all my time with.
+                `,
+
+                signature: "Tu es mon monde ♡"
+
+            },
+
+
+            {
+                numero: "SOUVENIR 03 / 03",
+
+                photo: "photo3.jpg",
+
+                caption: "notre histoire ♡",
+
+                titre: "So many memories...",
+
+                texte: `
+                    Honestly, I have so many memories with you. So, so many.
+                    I remember our first year of high school, the day we met.
+                    Back then, we were just complete strangers. Little by little,
+                    we became friends, and we had such a good year together,
+                    always laughing and having fun. Even though, when it came to
+                    school, to be honest, we were pretty bad 😭. We didn’t really
+                    care about our studies. Our only goal was to have a good time
+                    together.<br><br>
+
+                    I remember everything, literally everything. Even that one
+                    time when you took my backpack and just ran off with it for
+                    no reason other than to mess with me 😭. I also remember all
+                    our little pranks, our happy moments, but also the times when
+                    we got angry at each other.<br><br>
+
+                    Then came our second year. Unfortunately, we weren’t in the
+                    same class anymore because you had to repeat the year, but
+                    honestly, it wasn’t that big of a deal. Even so, we still had
+                    a really good year together. And it was during that year that
+                    we started becoming more than just friends.<br><br>
+
+                    We went from subtle flirting to very obvious flirting 😭.
+                    I remember that time we were texting each other, flirting
+                    like crazy, and then, all of a sudden, we finally faced the
+                    truth.<br><br>
+
+                    I remember that day so clearly. You were so shy about
+                    admitting it, and you were somehow shy, cute, and embarrassed
+                    all at once 🫣. From that day on, we started flirting… way too
+                    much 😭.<br><br>
+
+                    Then the weeks went by, until the day you finally, let’s say,
+                    confessed your feelings. I still remember it so clearly.
+                    That was also the day I said yes, and we officially became a
+                    couple. ❤️<br><br>
+
+                    It wasn’t that long ago. In just a few days, we’ll already
+                    have been together for two months, and yet, these have been
+                    the most wonderful two months of my life. Even with the
+                    problems we’ve had along the way, I wouldn’t change a thing.
+                    <br><br>
+
+                    I also remember all those little moments when you told me you
+                    loved me, here and there. And I still have some of them saved
+                    somewhere on my phone 🥹.<br><br>
+
+                    Now you’ve moved away. It’s true that we’re in a long-distance
+                    relationship, but even so, I still cherish every moment we get
+                    to spend together and all the wonderful memories we’ve made.
+                    <br><br>
+
+                    And I truly hope that we’ll keep creating many, many more
+                    together. ❤️<br><br>
+
+                    I love you, and I’ll never stop loving you.<br><br>
+
+                    Happy birthday, my love. ❤️🎂
+                `,
+
+                signature: "To be continued... ♡"
+
+            }
+
+        ];
+
+
+
+        /* =========================================================
+           AFFICHER UN SOUVENIR SUR LA PELLICULE
+        ========================================================= */
+
+        function afficherSouvenir(index) {
+
+            const souvenir =
+                souvenirs[index];
+
+
+            const filmStrip =
+                document.getElementById('filmStrip');
+
+            const filmEmpty =
+                document.getElementById('filmEmpty');
+
+            const filmPhoto =
+                document.getElementById('filmPhoto');
+
+            const photoCaption =
+                document.getElementById('photoCaption');
+
+            const filmTitle =
+                document.getElementById('filmTitle');
+
+            const filmText =
+                document.getElementById('filmText');
+
+            const filmSignature =
+                document.getElementById('filmSignature');
+
+            const filmNumber =
+                document.getElementById('filmNumber');
+
+
+            filmNumber.textContent =
+                souvenir.numero;
+
+            filmPhoto.src =
+                souvenir.photo;
+
+            filmPhoto.alt =
+                souvenir.caption;
+
+            photoCaption.textContent =
+                souvenir.caption;
+
+            filmTitle.textContent =
+                souvenir.titre;
+
+            filmText.innerHTML =
+                souvenir.texte;
+
+            filmSignature.textContent =
+                souvenir.signature;
+
+
+            filmEmpty.classList.add('hidden');
+
+
+            /* Reset animation */
+
+            filmStrip.classList.remove('visible');
+
+
+            /* Force reflow pour permettre
+               à l'animation de repartir */
+
+            void filmStrip.offsetWidth;
+
+
+            filmStrip.classList.add('visible');
+
+        }
+
+
+
+        /* =========================================================
+           IMPRESSION / SOUVENIR SUIVANT
+        ========================================================= */
+
+        function imprimerProchainTicket() {
+
+            const btnImp =
+                document.getElementById('btnImprimer');
+
+            const camera =
+                document.querySelector('.camera-body');
+
+            if (camera) {
+                camera.classList.remove('impression');
+                void camera.offsetWidth;
+                camera.classList.add('impression');
+            }
+
+
+            if (etapeActuelle < souvenirs.length) {
+
+                afficherSouvenir(etapeActuelle);
+
+
+                etapeActuelle++;
+
+
+                if (etapeActuelle < souvenirs.length) {
+
+                    btnImp.textContent =
+                        `🎞️ Développer le souvenir (${etapeActuelle + 1}/3)`;
+
+                } else {
+
+                    btnImp.textContent =
+                        "✨ Découvrir la suite";
+
+                }
+
+
+            } else {
+
+                document
+                    .getElementById('zoneImprimante')
+                    .classList
+                    .add('cache');
+
+
+                document
+                    .getElementById('zoneQuestionFinal')
+                    .classList
+                    .remove('cache');
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           BOUTON NON
+        ========================================================= */
+
+        function esquiverBouton() {
+
+            const btnNon =
+                document.getElementById('btnNon');
+
+            const btnOui =
+                document.getElementById('btnOui');
+
+
+            btnNon.style.position =
+                'fixed';
+
+
+            const xMax =
+                window.innerWidth -
+                btnNon.offsetWidth -
+                50;
+
+
+            const yMax =
+                window.innerHeight -
+                btnNon.offsetHeight -
+                50;
+
+
+            const randomX =
+                Math.max(
+                    20,
+                    Math.floor(Math.random() * xMax)
+                );
+
+
+            const randomY =
+                Math.max(
+                    20,
+                    Math.floor(Math.random() * yMax)
+                );
+
+
+            btnNon.style.left =
+                `${randomX}px`;
+
+
+            btnNon.style.top =
+                `${randomY}px`;
+
+
+            tailleOui += 0.4;
+
+
+            btnOui.style.transform =
+                `scale(${tailleOui})`;
+
+
+            btnOui.style.zIndex =
+                "9999";
+
+        }
+
+
+
+        /* =========================================================
+           RÉPONSE OUI
+        ========================================================= */
+
+        function reponseOui() {
+
+            document
+                .getElementById('zoneQuestionFinal')
+                .classList
+                .add('cache');
+
+
+            document
+                .getElementById('btnNon')
+                .style
+                .display = 'none';
+
+
+            document
+                .getElementById('messageVictoire')
+                .classList
+                .remove('cache');
+
+        }
+
+
+
+        /* =========================================================
+           TAPISSERIE DE FLEURS
+        ========================================================= */
+
+        function genererTapisserieFleurs() {
+
+            const conteneur =
+                document.getElementById('fleursConteneur');
+
+
+            conteneur.innerHTML = '';
+
+            conteneur.style.opacity = '1';
+
+
+            const totalFleurs = 600;
+
+
+            const imagesFleurs = [
+                'fleur1.png',
+                'fleur2.png'
+            ];
+
+
+            for (
+                let i = 0;
+                i < totalFleurs;
+                i++
+            ) {
+
+                setTimeout(() => {
+
+                    const conteneurActuel =
+                        document.getElementById('fleursConteneur');
+
+
+                    if (
+                        !conteneurActuel ||
+                        conteneurActuel.style.opacity === '0'
+                    ) {
+                        return;
+                    }
+
+
+                    const fleur =
+                        document.createElement('img');
+
+
+                    fleur.classList.add(
+                        'fleur-recouvrement'
+                    );
+
+
+                    const imageChoisie =
+                        imagesFleurs[
+                            Math.floor(
+                                Math.random() *
+                                imagesFleurs.length
+                            )
+                        ];
+
+
+                    fleur.src =
+                        imageChoisie;
+
+
+                    fleur.onerror = function() {
+                        this.style.display =
+                            'none';
+                    };
+
+
+                    fleur.style.left =
+                        `${-5 + Math.random() * 110}vw`;
+
+
+                    fleur.style.top =
+                        `${-5 + Math.random() * 110}vh`;
+
+
+                    const taille =
+                        50 +
+                        Math.random() * 160;
+
+
+                    fleur.style.width =
+                        `${taille}px`;
+
+
+                    fleur.style.height =
+                        `auto`;
+
+
+                    const rotation =
+                        Math.random() * 360;
+
+
+                    fleur.style.transform =
+                        `rotate(${rotation}deg)`;
+
+
+                    conteneurActuel.appendChild(
+                        fleur
+                    );
+
+                }, i * 3);
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           GALAXIE 3D
+        ========================================================= */
+
+        function creerTextureParticuleDense() {
+
+            const canvas =
+                document.createElement('canvas');
+
+
+            canvas.width = 64;
+            canvas.height = 64;
+
+
+            const ctx =
+                canvas.getContext('2d');
+
+
+            const gradient =
+                ctx.createRadialGradient(
+                    32,
+                    32,
+                    0,
+                    32,
+                    32,
+                    32
+                );
+
+
+            gradient.addColorStop(
+                0,
+                'rgba(255, 255, 255, 1)'
+            );
+
+
+            gradient.addColorStop(
+                0.25,
+                'rgba(255, 180, 220, 0.9)'
+            );
+
+
+            gradient.addColorStop(
+                0.55,
+                'rgba(255, 0, 128, 0.45)'
+            );
+
+
+            gradient.addColorStop(
+                1,
+                'rgba(0, 0, 0, 0)'
+            );
+
+
+            ctx.fillStyle =
+                gradient;
+
+
+            ctx.fillRect(
+                0,
+                0,
+                64,
+                64
+            );
+
+
+            return new THREE.CanvasTexture(
+                canvas
+            );
+
+        }
+
+
+
+        /* =========================================================
+           OUVRIR GALAXIE
+        ========================================================= */
+
+        function ouvrirGalaxie() {
+
+            document
+                .getElementById('page2')
+                .classList
+                .remove('active');
+
+
+            const conteneurFleurs =
+                document.getElementById(
+                    'fleursConteneur'
+                );
+
+
+            if (conteneurFleurs) {
+
+                conteneurFleurs.style.display =
+                    'none';
+
+            }
+
+
+            document
+                .getElementById('zoneGalaxie')
+                .classList
+                .remove('cache');
+
+
+            initialiserGalaxieEparpillee();
+
+        }
+
+
+
+        /* =========================================================
+           MODALE
+        ========================================================= */
+
+        function afficherModal(
+            titre,
+            texte
+        ) {
+
+            document
+                .getElementById('modalTitre')
+                .textContent = titre;
+
+
+            document
+                .getElementById('modalTexte')
+                .textContent = texte;
+
+
+            document
+                .getElementById('modalMotsDoux')
+                .classList
+                .remove('modal-cache');
+
+        }
+
+
+
+        function fermerModal() {
+
+            document
+                .getElementById('modalMotsDoux')
+                .classList
+                .add('modal-cache');
+
+        }
+
+
+
+        function ouvrirModalNotation() {
+
+            document
+                .getElementById('modalNotation')
+                .classList
+                .remove('modal-cache');
+
+
+            definirNoteJauge(1);
+
+        }
+
+
+
+        function fermerModalNotation() {
+
+            document
+                .getElementById('modalNotation')
+                .classList
+                .add('modal-cache');
+
+        }
+
+
+
+        /* =========================================================
+           JAUGE
+        ========================================================= */
+
+        function definirNoteJauge(valeur) {
+
+            noteSelectionnee =
+                valeur;
+
+
+            const barre =
+                document.getElementById(
+                    'barreJaugeVert'
+                );
+
+
+            const texte =
+                document.getElementById(
+                    'texteJaugeVert'
+                );
+
+
+            const btns =
+                document.querySelectorAll(
+                    '.grille-notes-verticale .btn-note'
+                );
+
+
+            const pourcentage =
+                (valeur / 10) * 100;
+
+
+            barre.style.height =
+                `${pourcentage}%`;
+
+
+            texte.textContent =
+                `${valeur} / 10`;
+
+
+            btns.forEach(
+                (btn, index) => {
+
+                    if (
+                        index + 1 <= valeur
+                    ) {
+
+                        btn.classList.add(
+                            'selectionne'
+                        );
+
+                    } else {
+
+                        btn.classList.remove(
+                            'selectionne'
+                        );
+
+                    }
+
+                }
+            );
+
+
+            if (valeur === 10) {
+
+                lancerExplosionConfettis();
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           CONFETTIS
+        ========================================================= */
+
+        function lancerExplosionConfettis() {
+
+            if (
+                typeof confetti === 'function'
+            ) {
+
+                confetti({
+
+                    particleCount: 120,
+
+                    spread: 80,
+
+                    origin: {
+                        y: 0.6
+                    }
+
+                });
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           ENVOYER NOTE
+        ========================================================= */
+
+        function envoyerNoteEtExploser() {
+
+            const carte =
+                document.getElementById(
+                    'carteNotation'
+                );
+
+
+            if (noteSelectionnee === 10) {
+
+                lancerExplosionConfettis();
+
+
+                carte.classList.add(
+                    'effet-explosion'
+                );
+
+
+                carte.innerHTML = `
+
+                    <h2 class="grand-titre-anniv">
+                        🎉 JOYEUX ANNIVERSAIRE ! 🎂✨
+                    </h2>
+
+                    <p
+                        style="
+                            font-size:16px;
+                            font-weight:bold;
+                            color:#ffffff;
+                        "
+                    >
+                        Tu as atteint 10/10 !
+                        Mon cœur explose de bonheur !
+                    </p>
+
+                    <p>
+                        Tu es mon plus beau cadeau
+                        et mon univers tout entier.
+                        Je t'aime à l'infini ! ❤️🔥
+                    </p>
+
+                    <button
+                        class="btn-fermer-modal"
+                        onclick="fermerModalNotation()"
+                    >
+                        Naviguer dans la galaxie ♡
+                    </button>
+
+                `;
+
+            } else {
+
+                carte.innerHTML = `
+
+                    <h2>
+                        Merci mon amour ! 🥰💖
+                    </h2>
+
+                    <p>
+                        Tu as rempli la jauge à
+                        <strong>
+                            ${noteSelectionnee}/10
+                        </strong> !
+                    </p>
+
+                    <p>
+                        Mon plus grand bonheur
+                        est de te faire sourire
+                        chaque jour.
+                    </p>
+
+                    <button
+                        class="btn-fermer-modal"
+                        onclick="fermerModalNotation()"
+                    >
+                        Retourner à la galaxie ♡
+                    </button>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           GALAXIE ÉPARPILLÉE
+        ========================================================= */
+
+        function initialiserGalaxieEparpillee() {
+
+            const container =
+                document.getElementById(
+                    'galaxy3DContainer'
+                );
+
+
+            container.innerHTML = '';
+
+
+            const scene =
+                new THREE.Scene();
+
+
+            const camera =
+                new THREE.PerspectiveCamera(
+                    50,
+                    window.innerWidth /
+                    window.innerHeight,
+                    0.1,
+                    1000
+                );
+
+
+            const renderer =
+                new THREE.WebGLRenderer({
+                    antialias: true,
+                    alpha: true
+                });
+
+
+            renderer.setSize(
+                window.innerWidth,
+                window.innerHeight
+            );
+
+
+            renderer.setPixelRatio(
+                Math.min(
+                    window.devicePixelRatio,
+                    2
+                )
+            );
+
+
+            container.appendChild(
+                renderer.domElement
+            );
+
+
+            camera.position.set(
+                0,
+                75,
+                120
+            );
+
+
+            const controls =
+                new THREE.OrbitControls(
+                    camera,
+                    renderer.domElement
+                );
+
+
+            controls.enableDamping = true;
+
+            controls.dampingFactor = 0.05;
+
+            controls.maxDistance = 250;
+
+            controls.minDistance = 30;
+
+            controls.target.set(
+                0,
+                5,
+                0
+            );
+
+
+            const mainGroup =
+                new THREE.Group();
+
+
+            scene.add(
+                mainGroup
+            );
+
+
+            const textureDense =
+                creerTextureParticuleDense();
+
+
+            /* =====================================================
+               PARTICULES GALAXIE
+            ====================================================== */
+
+            const particlesCount = 85000;
+
+
+            const geometry =
+                new THREE.BufferGeometry();
+
+
+            const positions =
+                new Float32Array(
+                    particlesCount * 3
+                );
+
+
+            const colors =
+                new Float32Array(
+                    particlesCount * 3
+                );
+
+
+            const colorCenter =
+                new THREE.Color(
+                    '#FF007F'
+                );
+
+
+            const colorEdge =
+                new THREE.Color(
+                    '#880E4F'
+                );
+
+
+            const radius = 78;
+
+            const arms = 4;
+
+
+            for (
+                let i = 0;
+                i < particlesCount;
+                i++
+            ) {
+
+                const i3 =
+                    i * 3;
+
+
+                const r =
+                    Math.pow(
+                        Math.random(),
+                        0.92
+                    ) *
+                    radius +
+                    3;
+
+
+                const armIndex =
+                    i % arms;
+
+
+                const spinAngle =
+                    r * 0.22;
+
+
+                const branchAngle =
+                    (armIndex / arms) *
+                    Math.PI *
+                    2;
+
+
+                const randomX =
+                    (Math.random() - 0.5) *
+                    (r * 0.45);
+
+
+                const randomY =
+                    (Math.random() - 0.5) *
+                    (r * 0.08);
+
+
+                const randomZ =
+                    (Math.random() - 0.5) *
+                    (r * 0.45);
+
+
+                positions[i3] =
+                    Math.cos(
+                        branchAngle +
+                        spinAngle
+                    ) *
+                    r +
+                    randomX;
+
+
+                positions[i3 + 1] =
+                    randomY;
+
+
+                positions[i3 + 2] =
+                    Math.sin(
+                        branchAngle +
+                        spinAngle
+                    ) *
+                    r +
+                    randomZ;
+
+
+                let mixedColor =
+                    colorCenter
+                        .clone()
+                        .lerp(
+                            colorEdge,
+                            r / radius
+                        );
+
+
+                if (r < 18) {
+
+                    mixedColor =
+                        new THREE.Color(
+                            '#FFFFFF'
+                        ).lerp(
+                            colorCenter,
+                            r / 18
+                        );
+
+                }
+
+
+                colors[i3] =
+                    mixedColor.r;
+
+
+                colors[i3 + 1] =
+                    mixedColor.g;
+
+
+                colors[i3 + 2] =
+                    mixedColor.b;
+
+            }
+
+
+            geometry.setAttribute(
+                'position',
+                new THREE.BufferAttribute(
+                    positions,
+                    3
+                )
+            );
+
+
+            geometry.setAttribute(
+                'color',
+                new THREE.BufferAttribute(
+                    colors,
+                    3
+                )
+            );
+
+
+            const material =
+                new THREE.PointsMaterial({
+
+                    size: 0.55,
+
+                    map: textureDense,
+
+                    vertexColors: true,
+
+                    transparent: true,
+
+                    opacity: 0.85,
+
+                    depthWrite: false,
+
+                    blending:
+                        THREE.AdditiveBlending
+
+                });
+
+
+            const galaxyParticles =
+                new THREE.Points(
+                    geometry,
+                    material
+                );
+
+
+            mainGroup.add(
+                galaxyParticles
+            );
+
+
+
+            /* =====================================================
+               GRAND CŒUR
+            ====================================================== */
+
+            const outerHeartCount =
+                18000;
+
+
+            const outerHeartGeo =
+                new THREE.BufferGeometry();
+
+
+            const outerHeartPos =
+                new Float32Array(
+                    outerHeartCount * 3
+                );
+
+
+            const outerHeartColors =
+                new Float32Array(
+                    outerHeartCount * 3
+                );
+
+
+            const cWhite =
+                new THREE.Color(
+                    '#FFFFFF'
+                );
+
+
+            const cPink =
+                new THREE.Color(
+                    '#FF007F'
+                );
+
+
+            const scaleOuter =
+                0.88;
+
+
+            for (
+                let i = 0;
+                i < outerHeartCount;
+                i++
+            ) {
+
+                const t =
+                    Math.random() *
+                    Math.PI *
+                    2;
+
+
+                const thickness =
+                    (Math.random() - 0.5) *
+                    0.2;
+
+
+                const rFactor =
+                    0.92 +
+                    thickness;
+
+
+                let x =
+                    16 *
+                    Math.pow(
+                        Math.sin(t),
+                        3
+                    ) *
+                    rFactor;
+
+
+                let y =
+                    (
+                        13 *
+                        Math.cos(t) -
+                        5 *
+                        Math.cos(2 * t) -
+                        2 *
+                        Math.cos(3 * t) -
+                        Math.cos(4 * t)
+                    ) *
+                    rFactor;
+
+
+                let z =
+                    (Math.random() - 0.5) *
+                    2.5;
+
+
+                outerHeartPos[i * 3] =
+                    x *
+                    scaleOuter;
+
+
+                outerHeartPos[i * 3 + 1] =
+                    y *
+                    scaleOuter;
+
+
+                outerHeartPos[i * 3 + 2] =
+                    z *
+                    scaleOuter;
+
+
+                const c =
+                    Math.abs(thickness) > 0.07
+                        ? cPink
+                        : cWhite;
+
+
+                outerHeartColors[i * 3] =
+                    c.r;
+
+
+                outerHeartColors[i * 3 + 1] =
+                    c.g;
+
+
+                outerHeartColors[i * 3 + 2] =
+                    c.b;
+
+            }
+
+
+            outerHeartGeo.setAttribute(
+                'position',
+                new THREE.BufferAttribute(
+                    outerHeartPos,
+                    3
+                )
+            );
+
+
+            outerHeartGeo.setAttribute(
+                'color',
+                new THREE.BufferAttribute(
+                    outerHeartColors,
+                    3
+                )
+            );
+
+
+            const outerHeartMat =
+                new THREE.PointsMaterial({
+
+                    size: 0.52,
+
+                    map: textureDense,
+
+                    vertexColors: true,
+
+                    transparent: true,
+
+                    opacity: 0.95,
+
+                    depthWrite: false,
+
+                    blending:
+                        THREE.AdditiveBlending
+
+                });
+
+
+            const outerHeartParticles =
+                new THREE.Points(
+                    outerHeartGeo,
+                    outerHeartMat
+                );
+
+
+            outerHeartParticles.position.y =
+                22;
+
+
+            mainGroup.add(
+                outerHeartParticles
+            );
+
+
+
+            /* =====================================================
+               CŒUR INTÉRIEUR
+            ====================================================== */
+
+            const innerHeartCount =
+                20000;
+
+
+            const innerHeartGeo =
+                new THREE.BufferGeometry();
+
+
+            const innerHeartPos =
+                new Float32Array(
+                    innerHeartCount * 3
+                );
+
+
+            const innerHeartColors =
+                new Float32Array(
+                    innerHeartCount * 3
+                );
+
+
+            const scaleInner =
+                0.52;
+
+
+            for (
+                let i = 0;
+                i < innerHeartCount;
+                i++
+            ) {
+
+                const t =
+                    Math.random() *
+                    Math.PI *
+                    2;
+
+
+                const rFactor =
+                    Math.pow(
+                        Math.random(),
+                        0.5
+                    );
+
+
+                let x =
+                    16 *
+                    Math.pow(
+                        Math.sin(t),
+                        3
+                    ) *
+                    rFactor;
+
+
+                let y =
+                    (
+                        13 *
+                        Math.cos(t) -
+                        5 *
+                        Math.cos(2 * t) -
+                        2 *
+                        Math.cos(3 * t) -
+                        Math.cos(4 * t)
+                    ) *
+                    rFactor;
+
+
+                const distanceCentre =
+                    Math.sqrt(
+                        x * x +
+                        y * y
+                    ) /
+                    16;
+
+
+                const galbe3D =
+                    Math.cos(
+                        Math.min(
+                            distanceCentre,
+                            1
+                        ) *
+                        (Math.PI / 2)
+                    );
+
+
+                let z =
+                    (Math.random() - 0.5) *
+                    12.0 *
+                    galbe3D;
+
+
+                innerHeartPos[i * 3] =
+                    x *
+                    scaleInner;
+
+
+                innerHeartPos[i * 3 + 1] =
+                    y *
+                    scaleInner;
+
+
+                innerHeartPos[i * 3 + 2] =
+                    z *
+                    scaleInner;
+
+
+                const c =
+                    cWhite
+                        .clone()
+                        .lerp(
+                            cPink,
+                            rFactor * 0.6
+                        );
+
+
+                innerHeartColors[i * 3] =
+                    c.r;
+
+
+                innerHeartColors[i * 3 + 1] =
+                    c.g;
+
+
+                innerHeartColors[i * 3 + 2] =
+                    c.b;
+
+            }
+
+
+            innerHeartGeo.setAttribute(
+                'position',
+                new THREE.BufferAttribute(
+                    innerHeartPos,
+                    3
+                )
+            );
+
+
+            innerHeartGeo.setAttribute(
+                'color',
+                new THREE.BufferAttribute(
+                    innerHeartColors,
+                    3
+                )
+            );
+
+
+            const innerHeartMat =
+                new THREE.PointsMaterial({
+
+                    size: 0.50,
+
+                    map: textureDense,
+
+                    vertexColors: true,
+
+                    transparent: true,
+
+                    opacity: 0.92,
+
+                    depthWrite: false,
+
+                    blending:
+                        THREE.AdditiveBlending
+
+                });
+
+
+            const innerHeartParticles =
+                new THREE.Points(
+                    innerHeartGeo,
+                    innerHeartMat
+                );
+
+
+            innerHeartParticles.position.y =
+                22;
+
+
+            mainGroup.add(
+                innerHeartParticles
+            );
+
+
+
+            /* =====================================================
+               MOTS DOUX
+            ====================================================== */
+
+            const listeMots = [
+
+                {
+                    titre: 'AMOUR DE MA VIE 💖',
+                    text:
+                        'Chaque seconde à tes côtés est un cadeau précieux.'
+                },
+
+                {
+                    titre: 'POUR TOUJOURS 💍',
+                    text:
+                        'Peu importe la distance ou le temps, mon cœur t’appartient.'
+                },
+
+                {
+                    titre: 'TU ES MA MAGIE ✨',
+                    text:
+                        'Tu illumines mes journées comme les étoiles illuminent la nuit.'
+                },
+
+                {
+                    titre: 'MON BONHEUR 🌸',
+                    text:
+                        'Ton sourire est mon endroit préféré dans tout l’univers.'
+                },
+
+                {
+                    titre: 'MON ÂME SŒUR 💖',
+                    text:
+                        'Merci d’être la personne extraordinaire tu es chaque jour.'
+                },
+
+                {
+                    titre: 'AMOUR INFINI 🌌',
+                    text:
+                        'Notre histoire est ma plus belle aventure.'
+                },
+
+                {
+                    titre: 'MON SOLEIL ☀️',
+                    text:
+                        'Même dans le noir, ta présence réchauffe tout mon cœur.'
+                },
+
+                {
+                    titre: 'RÊVE RÉALISÉ 💫',
+                    text:
+                        'Je n’aurais jamais pu imaginer trouver quelqu’un comme toi.'
+                },
+
+                {
+                    titre: 'UN TRÉSOR 💎',
+                    text:
+                        'Tu as la plus belle âme que la terre ait portée.'
+                },
+
+                {
+                    titre: 'MABROUK 🌺',
+                    text:
+                        'Que chaque année t’apporte encore plus de joie et de réussite.'
+                },
+
+                {
+                    titre: 'TOI ET MOI 💏',
+                    text:
+                        'Construire notre avenir ensemble est ma plus grande fierté.'
+                }
+
+            ];
+
+
+            const objets3D = [];
+
+
+            listeMots.forEach(
+                (item, index) => {
+
+                    const btnHTML =
+                        document.createElement(
+                            'button'
+                        );
+
+
+                    btnHTML.className =
+                        'texte-galaxie-3d';
+
+
+                    btnHTML.innerText =
+                        item.titre;
+
+
+                    btnHTML.addEventListener(
+                        'click',
+                        (e) => {
+
+                            e.stopPropagation();
+
+                            afficherModal(
+                                item.titre,
+                                item.text
+                            );
+
+                        }
+                    );
+
+
+                    container.appendChild(
+                        btnHTML
+                    );
+
+
+                    const angle =
+                        (index /
+                            listeMots.length) *
+                        Math.PI *
+                        2;
+
+
+                    const rayonOrbit =
+                        48;
+
+
+                    const posX =
+                        Math.cos(angle) *
+                        rayonOrbit;
+
+
+                    const posZ =
+                        Math.sin(angle) *
+                        rayonOrbit;
+
+
+                    const posY =
+                        5 +
+                        (
+                            Math.sin(
+                                index * 2
+                            ) *
+                            8
+                        );
+
+
+                    const objet3DCoord =
+                        new THREE.Object3D();
+
+
+                    objet3DCoord.position.set(
+                        posX,
+                        posY,
+                        posZ
+                    );
+
+
+                    mainGroup.add(
+                        objet3DCoord
+                    );
+
+
+                    objets3D.push({
+
+                        element: btnHTML,
+
+                        objet3D:
+                            objet3DCoord
+
+                    });
+
+                }
+            );
+
+
+
+            /* =====================================================
+               SECRET DU CŒUR
+            ====================================================== */
+
+            const btnSecret =
+                document.createElement(
+                    'button'
+                );
+
+
+            btnSecret.className =
+                'bouton-secret-coeur';
+
+
+            btnSecret.innerHTML =
+                '♡ Notre Secret ♡';
+
+
+            btnSecret.addEventListener(
+                'click',
+                (e) => {
+
+                    e.stopPropagation();
+
+                    ouvrirModalNotation();
+
+                }
+            );
+
+
+            container.appendChild(
+                btnSecret
+            );
+
+
+            const coeur3DCoord =
+                new THREE.Object3D();
+
+
+            coeur3DCoord.position.set(
+                0,
+                22,
+                0
+            );
+
+
+            mainGroup.add(
+                coeur3DCoord
+            );
+
+
+            let clock =
+                new THREE.Clock();
+
+
+            const vectorTemp =
+                new THREE.Vector3();
+
+
+
+            /* =====================================================
+               ANIMATION
+            ====================================================== */
+
+            function animate() {
+
+                requestAnimationFrame(
+                    animate
+                );
+
+
+                const elapsedTime =
+                    clock.getElapsedTime();
+
+
+                controls.update();
+
+
+                mainGroup.rotation.y =
+                    elapsedTime *
+                    0.08;
+
+
+                const pulse =
+                    1 +
+                    Math.sin(
+                        elapsedTime * 2.8
+                    ) *
+                    0.035;
+
+
+                outerHeartParticles.scale.set(
+                    pulse,
+                    pulse,
+                    pulse
+                );
+
+
+                innerHeartParticles.scale.set(
+                    pulse,
+                    pulse,
+                    pulse
+                );
+
+
+                const widthHalf =
+                    window.innerWidth /
+                    2;
+
+
+                const heightHalf =
+                    window.innerHeight /
+                    2;
+
+
+
+                objets3D.forEach(
+                    item => {
+
+                        item.objet3D
+                            .getWorldPosition(
+                                vectorTemp
+                            );
+
+
+                        vectorTemp.project(
+                            camera
+                        );
+
+
+                        if (
+                            vectorTemp.z < 1
+                        ) {
+
+                            const x =
+                                (
+                                    vectorTemp.x *
+                                    widthHalf
+                                ) +
+                                widthHalf;
+
+
+                            const y =
+                                -(
+                                    vectorTemp.y *
+                                    heightHalf
+                                ) +
+                                heightHalf;
+
+
+                            item.element.style.left =
+                                `${x}px`;
+
+
+                            item.element.style.top =
+                                `${y}px`;
+
+
+                            item.element.style.display =
+                                'block';
+
+                        } else {
+
+                            item.element.style.display =
+                                'none';
+
+                        }
+
+                    }
+                );
+
+
+
+                coeur3DCoord
+                    .getWorldPosition(
+                        vectorTemp
+                    );
+
+
+                vectorTemp.project(
+                    camera
+                );
+
+
+                if (
+                    vectorTemp.z < 1
+                ) {
+
+                    const x =
+                        (
+                            vectorTemp.x *
+                            widthHalf
+                        ) +
+                        widthHalf;
+
+
+                    const y =
+                        -(
+                            vectorTemp.y *
+                            heightHalf
+                        ) +
+                        heightHalf;
+
+
+                    btnSecret.style.left =
+                        `${x}px`;
+
+
+                    btnSecret.style.top =
+                        `${y}px`;
+
+
+                    btnSecret.style.display =
+                        'block';
+
+                } else {
+
+                    btnSecret.style.display =
+                        'none';
+
+                }
+
+
+                renderer.render(
+                    scene,
+                    camera
+                );
+
+            }
+
+
+            animate();
+
+
+
+            /* =====================================================
+               RESIZE
+            ====================================================== */
+
+            window.addEventListener(
+                'resize',
+                () => {
+
+                    camera.aspect =
+                        window.innerWidth /
+                        window.innerHeight;
+
+
+                    camera.updateProjectionMatrix();
+
+
+                    renderer.setSize(
+                        window.innerWidth,
+                        window.innerHeight
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
